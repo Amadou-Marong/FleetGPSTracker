@@ -91,6 +91,7 @@ export default function Vehicles() {
     available: "bg-primary/10 text-primary",
     assigned: "bg-info/10 text-info",
     maintenance: "bg-warning/10 text-warning",
+    completed: "bg-success/10 text-success",
   };
 
   return (

@@ -78,7 +78,8 @@ export default function LiveTracking() {
   const vehicles = useMemo(
     () =>
       Object.values(liveVehicles).filter(
-        (v) => v.route && v.route.length > 0 && v.status !== "completed"
+        // (v) => v.route && v.route.length > 0 && v.status !== "completed"
+        (v) => v.route && v.route.length > 0
       ),
     [liveVehicles]
   );
@@ -109,7 +110,7 @@ export default function LiveTracking() {
               <CardTitle>Fleet Map</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="h-[620px] w-full overflow-hidden rounded-xl border">
+              <div className="h-155 w-full overflow-hidden rounded-xl border">
                 <MapContainer
                   center={mapCenter}
                   zoom={11}

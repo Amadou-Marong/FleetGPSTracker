@@ -42,7 +42,7 @@ export default function DriverApp() {
   }, [vehiclesMap, selectedDriverId]);
 
   const vehicle = selectedDriverId ? liveVehicles[selectedDriverId] : undefined;
-  const isTripActive = !!vehicle && vehicle.status !== "completed";
+  const isTripActive = !!vehicle && vehicle.status !== "idle";
 
   return (
     <div className="space-y-6 p-6">

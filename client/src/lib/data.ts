@@ -9,6 +9,7 @@ export interface Driver {
 }
 
 export interface Vehicle {
+  status: string;
   id: string;
   plate: string;
   model: string;
@@ -153,6 +154,7 @@ export const MOCK_VEHICLES: Vehicle[] = [
     year: 2021,
     speedLimit: 60,
     assignedDriverId: "drv-1",
+    status: "active",
   },
   {
     id: "veh-2",
@@ -161,6 +163,7 @@ export const MOCK_VEHICLES: Vehicle[] = [
     year: 2020,
     speedLimit: 50,
     assignedDriverId: "drv-2",
+    status: "active",
   },
   {
     id: "veh-3",
@@ -169,6 +172,7 @@ export const MOCK_VEHICLES: Vehicle[] = [
     year: 2022,
     speedLimit: 70,
     assignedDriverId: "drv-3",
+    status: "active",
   },
   {
     id: "veh-4",
@@ -176,6 +180,7 @@ export const MOCK_VEHICLES: Vehicle[] = [
     model: "Mitsubishi L200",
     year: 2019,
     speedLimit: 65,
+    status: "inactive",
   },
 ];
 

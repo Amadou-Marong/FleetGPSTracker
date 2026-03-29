@@ -3,7 +3,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import { MOCK_DRIVERS, MOCK_VEHICLES, type LatLngPoint } from "@/lib/data";
 import { getRoute } from "@/lib/routes";
 
-export type VehicleStatus = "available" | "assigned" | "maintenance";
+export type VehicleStatus = "available" | "assigned" | "maintenance" | "completed";
 export type DriverStatus = "active" | "inactive";
 export type VehicleLiveStatus = "idle" | "moving" | "overspeed";
 
@@ -21,8 +21,8 @@ export interface Vehicle {
   model: string;
   year: number;
   speedLimit: number;
-  status?: VehicleStatus;
   assignedDriverId?: string;
+  status: VehicleStatus;
 }
 
 export interface LiveVehicle {
@@ -292,7 +292,7 @@ function buildInitialVehicles(): Record<string, Vehicle> {
         model: v.model,
         year: v.year,
         speedLimit: v.speedLimit,
-        status: v.status ?? (v.assignedDriverId ? "assigned" : "available"),
+        status: (v.status ?? (v.assignedDriverId ? "assigned" : "available")) as VehicleStatus,
         assignedDriverId: v.assignedDriverId,
       },
     ])
@@ -384,17 +384,16 @@ export const useFleetStore = create<FleetStore>()(
             const nextDrivers = { ...state.drivers };
             delete nextDrivers[driverId];
 
-            const nextVehicles = Object.fromEntries(
+            const nextVehicles: Record<string, Vehicle> = Object.fromEntries(
               Object.entries(state.vehicles).map(([id, vehicle]) => [
                 id,
                 vehicle.assignedDriverId === driverId
                   ? {
                       ...vehicle,
                       assignedDriverId: undefined,
-                      status:
-                        vehicle.status === "maintenance"
-                          ? "maintenance"
-                          : "available",
+                      status: (vehicle.status === "maintenance"
+                        ? "maintenance"
+                        : "available") as VehicleStatus,
                     }
                   : vehicle,
               ])
